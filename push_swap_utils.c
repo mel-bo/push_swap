@@ -6,48 +6,43 @@
 /*   By: mel-bout <mel-bout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 14:17:00 by mel-bout          #+#    #+#             */
-/*   Updated: 2024/11/03 15:05:19 by mel-bout         ###   ########.fr       */
+/*   Updated: 2024/11/16 18:28:33 by mel-bout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h> // effacer
 
-// void	stack_a(Node **root, int value)
-// {
-// 	Node	*new_node;
-// 	Node	*curr;
+void	free_stack(stack *s)
+{
+	if (!s->head || !s->tail)
+		return ;
+	while (s->head != s->tail)
+	{
+		s->head = s->head->next;
+		free(s->head->preview);
+	}
+	free(s->head);
+}
 
-// 	new_node = malloc(sizeof(Node));
-// 	if (!new_node)
-// 		return ;
-// 	new_node->next = NULL;
-// 	new_node->x = value;
-// 	if (*root == NULL)
-// 	{
-// 		*root =  new_node;
-// 		return ;
-// 	}
-// 	printf("before seconde node\n");
-// 	curr = *root;
-// 	while (curr->next != NULL)
-// 		curr = curr->next;
-// 	curr->next = new_node;
-// }
-// int main(void)
-// {
-// 	Node	*root;
-// 	Node	*curr;
-	
-// 	root = NULL;
-// 	curr = root;
-// 	stack_a(&root, 5);
-// 	stack_a(&root, 42);
-// 	while (curr != NULL)
-// 	{
-// 		printf("%d\n", curr->x);
-// 		curr = curr->next;
-// 	}
-// 	return (0);
-// }
+void	enqueue(stack *q, int n)
+{
+	node	*new_node;
+
+	new_node = malloc(sizeof(node));
+	if (!new_node)
+		return ;
+	new_node->x = n;
+	new_node->preview = NULL;
+	new_node->next = NULL;
+	if (q->tail != NULL)
+	{
+		q->tail->next = new_node;
+		new_node->preview = q->tail;
+	}
+	q->tail = new_node;
+	q->size += 1;
+	if (q->head == NULL)
+		q->head = new_node;
+}
 

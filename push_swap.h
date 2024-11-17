@@ -6,7 +6,7 @@
 /*   By: mel-bout <mel-bout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 11:35:29 by mel-bout          #+#    #+#             */
-/*   Updated: 2024/11/03 15:31:38 by mel-bout         ###   ########.fr       */
+/*   Updated: 2024/11/07 14:48:43 by mel-bout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,24 @@
 # include <stdlib.h>
 # include <limits.h>
 
-typedef struct Node
+typedef struct	node
 {
 	int			x;
-	struct Node	*next;
-}	Node;
+	struct node *preview;
+	struct node	*next;
+}	node;
+
+typedef struct 
+{
+	node	*head;
+	node	*tail;
+	int	size;
+	int	value;
+}	stack;
 
 int		ft_isdigit(char **s);
-int		parsor(char **tab, int x);
+int		parser(char **tab, stack *a);
+void	enqueue(stack *q, int n);
+void	swap_s(stack *s);
 
 #endif

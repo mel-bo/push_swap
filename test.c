@@ -6,6 +6,7 @@
 typedef struct	node
 {
 	int			x;
+	struct node	*preview;
 	struct node	*next;
 }	node;
 
@@ -24,16 +25,24 @@ void	init_queue(queue *q)
 void	enqueue(queue *q, int n)
 {
 	node	*new_node;
+
+	new_node = malloc(sizeof(node));
+	if (!new_node)
+		return ;
 	new_node->x = n;
+	new_node->preview = NULL;
 	new_node->next = NULL;
 
 	if (q->tail != NULL)
+	{
 		q->tail->next = new_node;
+		new_node->preview = q->tail;
+	}
 	q->tail = new_node;
 	if (q->head == NULL)
 		q->head = new_node;
-	printf("x = %d\n", new_node->x); 
 }
+
 int main(void)
 {
 	int	i;
@@ -43,7 +52,6 @@ int main(void)
 	i = 0;
 	while (i < 10)
 	{
-		// printf("i = %d\n", i);
 		enqueue(&q, i);
 		i++;
 	}

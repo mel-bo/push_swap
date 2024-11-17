@@ -6,7 +6,7 @@
 #    By: mel-bout <mel-bout@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/28 15:26:33 by mel-bout          #+#    #+#              #
-#    Updated: 2024/10/20 17:57:49 by mel-bout         ###   ########.fr        #
+#    Updated: 2024/11/07 14:48:30 by mel-bout         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ CC = gcc
 INC = -Llibft -lft -Lft_printf -lftprintf
 CFLAGS = -Wall -Werror -Wextra -I libft -I ft_printf
  
-SRCS = main.c check_arg.c
+SRCS = main.c check_arg.c push_swap_utils.c operators.c
 
 # transforme tt les .c en .o
 OBJS = ${SRCS:.c=.o}
