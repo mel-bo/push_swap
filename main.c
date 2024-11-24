@@ -6,7 +6,7 @@
 /*   By: mel-bout <mel-bout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 16:10:42 by mel-bout          #+#    #+#             */
-/*   Updated: 2024/11/07 14:50:45 by mel-bout         ###   ########.fr       */
+/*   Updated: 2024/11/24 22:52:09 by mel-bout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	main(int argc, char **argv)
 	}
 	printf("***sortie stack_a***\n\n");
 	printf("*******swap_s*******\n");
-	swap_s(&a);
+	//swap_s(&a);
 	ptr = a.head;
 	while (ptr != NULL)
 	{

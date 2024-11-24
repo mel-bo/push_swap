@@ -6,7 +6,7 @@
 /*   By: mel-bout <mel-bout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 11:35:29 by mel-bout          #+#    #+#             */
-/*   Updated: 2024/11/07 14:48:43 by mel-bout         ###   ########.fr       */
+/*   Updated: 2024/11/24 22:51:03 by mel-bout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ typedef struct
 int		ft_isdigit(char **s);
 int		parser(char **tab, stack *a);
 void	enqueue(stack *q, int n);
-void	swap_s(stack *s);
+void	swap_n(stack *s);
+void	rotate_n(stack *s);
+void	rev_rotate(stack *s);
+void	push_n(stack *x, stack *y);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mel-bout <mel-bout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 19:15:56 by mel-bout          #+#    #+#             */
-/*   Updated: 2024/11/24 19:19:43 by mel-bout         ###   ########.fr       */
+/*   Updated: 2024/11/24 22:51:36 by mel-bout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	rotate_n(stack *s)
 	
 	tmp = s->head->next;
 	if (s->size == 2)
-		swap_s(&s);
+		swap_n(s);
 	else
 	{
 		s->tail->next = s->head;
@@ -61,13 +61,16 @@ void	rev_rotate(stack *s)
 
 	tmp = s->tail->preview;
 	if (s->size == 2)
-		swap_s(&s);
-	s->head->preview = s->tail;
-	s->tail->next = s->head;
-	s->tail->preview = NULL;
-	tmp->next = NULL;
-	s->head = s->tail;
-	s->tail = tmp;
+		swap_n(s);
+	else
+	{
+		s->head->preview = s->tail;
+		s->tail->next = s->head;
+		s->tail->preview = NULL;
+		tmp->next = NULL;
+		s->head = s->tail;
+		s->tail = tmp;
+	}
 }
 
 void	push_n(stack *x, stack *y)
@@ -88,7 +91,8 @@ void	push_n(stack *x, stack *y)
 		tmp = y->head;
 		y->head = x->head;
 		x->head = x->head->next;
-		x->head->preview = NULL;
+		if (x->head != NULL)
+			x->head->preview = NULL;
 		y->head->next = tmp;
 		tmp->preview = y->head;
 	}
