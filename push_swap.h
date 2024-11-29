@@ -6,7 +6,7 @@
 /*   By: mel-bout <mel-bout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 11:35:29 by mel-bout          #+#    #+#             */
-/*   Updated: 2024/11/24 22:51:03 by mel-bout         ###   ########.fr       */
+/*   Updated: 2024/11/29 20:58:08 by mel-bout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ typedef struct	node
 	int			x;
 	struct node *preview;
 	struct node	*next;
+	int	target;
+	int pos;
 }	node;
 
 typedef struct 
@@ -31,7 +33,8 @@ typedef struct
 	node	*head;
 	node	*tail;
 	int	size;
-	int	value;
+	
+	int median;
 }	stack;
 
 int		ft_isdigit(char **s);
@@ -41,5 +44,8 @@ void	swap_n(stack *s);
 void	rotate_n(stack *s);
 void	rev_rotate(stack *s);
 void	push_n(stack *x, stack *y);
+void	turk_algo(stack *a, stack *b);
+void    target_small(stack *x, stack *y);
+void    get_order(stack *x, stack *y);
 
 #endif

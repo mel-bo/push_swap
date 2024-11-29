@@ -45,15 +45,8 @@ void	enqueue(queue *q, int n)
 
 int main(void)
 {
-	int	i;
-	queue	q;
-
-	init_queue(&q);
-	i = 0;
-	while (i < 10)
-	{
-		enqueue(&q, i);
-		i++;
-	}
+	int i = 2;
+	int j = 42;
+	printf("%d\n", i - j);
 	return (0);
 }

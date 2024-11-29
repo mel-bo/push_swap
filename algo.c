@@ -6,7 +6,7 @@
 /*   By: mel-bout <mel-bout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 22:25:18 by mel-bout          #+#    #+#             */
-/*   Updated: 2024/11/24 23:54:32 by mel-bout         ###   ########.fr       */
+/*   Updated: 2024/11/29 19:30:52 by mel-bout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,17 @@ void	turk_algo(stack *a, stack *b)
 {
 	if (a->size == 2)
 		sort_2(a);
-	if (a->size == 3)
+	else if (a->size == 3)
 		mini_sort(a);
+	else if (a->size > 3)
+	{
+		push_n(a, b);
+		if (a->size > 3)
+			push_n(a, b);
+		while (a->size > 3)
+		{
+			get_order(a, b);
+			target_small(a, b);
+		}
+	}
 }

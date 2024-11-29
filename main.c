@@ -6,7 +6,7 @@
 /*   By: mel-bout <mel-bout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 16:10:42 by mel-bout          #+#    #+#             */
-/*   Updated: 2024/11/24 22:52:09 by mel-bout         ###   ########.fr       */
+/*   Updated: 2024/11/29 16:45:35 by mel-bout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,15 @@ void	init_queue(stack *a, stack *b)
 	a->head = NULL;
 	a->tail = NULL;
 	a->size = 0;
-	a->value = 0;
+	a->target = 0;
+	a->pos = 0;
+	a->median = 0;
 	b->head = NULL;
 	b->tail = NULL;
 	b->size = 0;
-	b->value = 0;
+	b->target = 0;
+	b->pos = 0;
+	b->median = 0;
 }
 
 int	main(int argc, char **argv)
