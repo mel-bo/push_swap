@@ -6,7 +6,7 @@
 /*   By: mel-bout <mel-bout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 19:15:56 by mel-bout          #+#    #+#             */
-/*   Updated: 2024/11/24 22:51:36 by mel-bout         ###   ########.fr       */
+/*   Updated: 2024/11/30 20:59:50 by mel-bout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,12 @@ void	push_n(stack *x, stack *y)
 {
 	node	*tmp;
 	
-	if (!y)
+	if (!y->head)
 	{
 		y->head = x->head;
 		y->tail = x->head;
 		x->head = x->head->next;
 		x->head->preview = NULL;
-		y->head->preview = NULL;
 		y->head->next = NULL;
 	}
 	else
@@ -98,4 +97,6 @@ void	push_n(stack *x, stack *y)
 	}
 	if (x->head == NULL)
 		x->tail = NULL;
+	x->size--;
+	y->size++;
 }

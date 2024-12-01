@@ -6,7 +6,7 @@
 /*   By: mel-bout <mel-bout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 16:23:36 by mel-bout          #+#    #+#             */
-/*   Updated: 2024/11/29 20:59:41 by mel-bout         ###   ########.fr       */
+/*   Updated: 2024/12/01 17:09:04 by mel-bout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,128 @@ void	target_small(stack *x, stack *y)
 			}
 			ptr_b = ptr_b->next;
 		}
+		printf("%d => %d\n", ptr_a->x, ptr_a->target);
 		ptr_a = ptr_a->next;
+	}
+}
+
+void	cost_calc(stack *x)
+{
+	int	res;
+	
+	res = -1;
+	if (x->sa > 0 && x->sb > 0)
+	{
+		x->ss = 1;
+		x->sa = 0;
+		x->sb = 0;
+		x->cost = 1;
+	}
+	else if (x->ra > 0 && x->rb > 0)
+	{
+		res = x->ra - x->rb;
+		if (res > 0)
+		{
+			x->rr = x->rb;
+			x->rb = 0;
+			x->ra = res;
+			x->cost = x->rr + x->ra;
+		}
+		else if (res < 0)
+		{
+			x->rr = x->ra;
+			x->ra = 0;
+			x->rb = res;
+			x->cost = x->rr + x->rb;
+		}
+		else
+		{
+			x->rr = x->ra;
+			x->ra = 0;
+			x->rb = 0;
+			x->cost = x->rr;
+		}
+	}
+	else if (x->rra > 0 && x->rrb > 0)
+	{
+		res = x->rra - x->rrb;
+		if (res > 0)
+		{
+			x->rrr = x->rrb;
+			x->rrb = 0;
+			x->rra = res;
+			x->cost = x->rrr + x->rra;
+		}
+		else if (res < 0)
+		{
+			x->rrr = x->rra;
+			x->rra = 0;
+			x->rrb = res;
+			x->cost = x->rrr + x->rrb;
+		}
+		else
+		{
+			x->rrr = x->rra;
+			x->rra = 0;
+			x->rrb = 0;
+			x->cost = x->rrr;
+		}
+	}
+	else
+	{
+		
+	}
+}
+
+void	cost_pos1(stack *x)
+{
+	if (ptr->target == 1)
+		{
+			x->cost = 0;
+		}
+		else if (ptr->target == 2)
+		{
+			x->cost = 1;
+			x->sb = 1;
+		}
+		else if (ptr->target > 2)
+		{
+			if (x->median >= ptr->target)
+			{
+				x->cost = ptr->target - 1;
+				x->rb = ptr->target - 1;
+			}
+			else if (ptr->target > x->median)
+			{
+				x->cost = x->size - ptr->target + 1;
+				x->rrb = x->size - ptr->target + 1;
+			}
+		}
+}
+
+void	cost_analysis(stack *x, stack *y)
+{
+	node	*ptr;
+
+	ptr = x->head;
+	if (ptr->pos == 1)
+		cost_pos1(x);
+	else if (ptr->pos == 2)
+	{
+		if (ptr->target == 1)
+		{
+			x->cost = 1;
+			x->sa = 1;
+		}
+		else if (ptr->target == 2)
+		{
+			x->cost = 1;
+			x->sa = 1;
+			x->sb = 1;
+		}
+		else if (ptr->target > 2)
+		{
+			
+		}
 	}
 }

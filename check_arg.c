@@ -6,7 +6,7 @@
 /*   By: mel-bout <mel-bout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 11:34:23 by mel-bout          #+#    #+#             */
-/*   Updated: 2024/11/07 14:45:13 by mel-bout         ###   ########.fr       */
+/*   Updated: 2024/12/01 15:13:19 by mel-bout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,9 @@ int	limit(char **tab, stack *a)
 	printf("*****sortie limit*****\n\n");
 	return (0);
 }
-/* rajouter la verification pour voir si tt est en ordre */
+/* rajouter la verification pour voir si tt est en ordre 
+	30/11/24 il faut refaire mon check_double
+*/
 int	check_double(stack *a)
 {
 	node	*value;
@@ -92,6 +94,8 @@ int	parser(char **tab, stack *a)
 		return (1);
 	if (limit(tab, a))
 		return (1);
+	a->median = a->size / 2;
+	printf("median %d\n", a->median); // effacer
 	if (check_double(a))
 		return (1);
 	return (0);

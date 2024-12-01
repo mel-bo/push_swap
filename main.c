@@ -6,7 +6,7 @@
 /*   By: mel-bout <mel-bout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 16:10:42 by mel-bout          #+#    #+#             */
-/*   Updated: 2024/11/29 16:45:35 by mel-bout         ###   ########.fr       */
+/*   Updated: 2024/12/01 16:35:56 by mel-bout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,17 @@ void	init_queue(stack *a, stack *b)
 	a->head = NULL;
 	a->tail = NULL;
 	a->size = 0;
-	a->target = 0;
-	a->pos = 0;
 	a->median = 0;
-	b->head = NULL;
-	b->tail = NULL;
-	b->size = 0;
-	b->target = 0;
-	b->pos = 0;
-	b->median = 0;
+	a->cost = -1;
+	a->sa = 0;
+	a->sb = 0;
+	a->ra = 0;
+	a->rb = 0;
+	a->rra = 0;
+	a->rrb = 0;
+	a->ss = 0;
+	a->rr = 0;
+	a->rrr = 0;
 }
 
 int	main(int argc, char **argv)
@@ -47,7 +49,8 @@ int	main(int argc, char **argv)
 	stack	a;
 	stack	b;
 
-	init_queue(&a, &b);
+	init_queue(&a);
+	init_queue(&b);
 	if (argc < 2 || argv[1][0] == '\0')
 		return (ft_printf("Error\n"), 1);
 	//call_split(argv);
@@ -61,18 +64,10 @@ int	main(int argc, char **argv)
 	ptr = a.head;
 	while (ptr != NULL)
 	{
-		printf("ptr = <%d>\n", ptr->x);
+		printf("ptr = <%d>size <%d>\n", ptr->x, a.size);
 		ptr = ptr->next;
 	}
 	printf("***sortie stack_a***\n\n");
-	printf("*******swap_s*******\n");
-	//swap_s(&a);
-	ptr = a.head;
-	while (ptr != NULL)
-	{
-		printf("ptr = <%d>\n", ptr->x);
-		ptr = ptr->next;
-	}
-	printf("*****sortie stack_a*****\n");
+	turk_algo(&a, &b);
 	return (0);
 }

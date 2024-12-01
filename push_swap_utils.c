@@ -6,7 +6,7 @@
 /*   By: mel-bout <mel-bout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 14:17:00 by mel-bout          #+#    #+#             */
-/*   Updated: 2024/11/16 18:28:33 by mel-bout         ###   ########.fr       */
+/*   Updated: 2024/11/30 14:18:57 by mel-bout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	enqueue(stack *q, int n)
 	if (!new_node)
 		return ;
 	new_node->x = n;
+	new_node->pos = 0;
+	new_node->target = 0;
 	new_node->preview = NULL;
 	new_node->next = NULL;
 	if (q->tail != NULL)
@@ -41,7 +43,7 @@ void	enqueue(stack *q, int n)
 		new_node->preview = q->tail;
 	}
 	q->tail = new_node;
-	q->size += 1;
+	q->size++;
 	if (q->head == NULL)
 		q->head = new_node;
 }
