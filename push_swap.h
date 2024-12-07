@@ -6,7 +6,7 @@
 /*   By: mel-bout <mel-bout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 11:35:29 by mel-bout          #+#    #+#             */
-/*   Updated: 2024/12/01 16:33:10 by mel-bout         ###   ########.fr       */
+/*   Updated: 2024/12/03 22:20:46 by mel-bout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct
 	int		size;
 	int 	median;
 	int		cost;
+	int		new_cost;
 	int		node_exe;
 	int		sa;
 	int		sb;

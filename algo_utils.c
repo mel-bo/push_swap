@@ -6,7 +6,7 @@
 /*   By: mel-bout <mel-bout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 16:23:36 by mel-bout          #+#    #+#             */
-/*   Updated: 2024/12/01 17:09:04 by mel-bout         ###   ########.fr       */
+/*   Updated: 2024/12/03 23:07:38 by mel-bout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	get_order(stack *x, stack *y)
 		ptr = ptr->next;
 		i++;
 	}
+	x->median = x->size / 2;
+	y->median = y->size / 2;
 }
 
 int	first_ref(int x, stack *y, int *target)
@@ -101,11 +103,64 @@ void	target_small(stack *x, stack *y)
 	}
 }
 
-void	cost_calc(stack *x)
+void	cost_rr(stack *x)
 {
 	int	res;
 	
-	res = -1;
+	res = x->ra - x->rb;
+	if (res > 0)
+	{
+		x->rr = x->rb;
+		x->rb = 0;
+		x->ra = res;
+		x->cost = x->rr + x->ra;
+	}
+	else if (res < 0)
+	{
+		x->rr = x->ra;
+		x->ra = 0;
+		x->rb = res;
+		x->cost = x->rr + x->rb;
+	}
+	else
+	{
+		x->rr = x->ra;
+		x->ra = 0;
+		x->rb = 0;
+		x->cost = x->rr;
+	}
+}
+
+void	cost_rrr(stack *x)
+{
+	int	res;
+
+	res = x->rra - x->rrb;
+	if (res > 0)
+	{
+		x->rrr = x->rrb;
+		x->rrb = 0;
+		x->rra = res;
+		x->cost = x->rrr + x->rra;
+	}
+	else if (res < 0)
+	{
+		x->rrr = x->rra;
+		x->rra = 0;
+		x->rrb = res;
+		x->cost = x->rrr + x->rrb;
+	}
+	else
+	{
+		x->rrr = x->rra;
+		x->rra = 0;
+		x->rrb = 0;
+		x->cost = x->rrr;
+	}
+}
+
+void	cost_calc(stack *x)
+{
 	if (x->sa > 0 && x->sb > 0)
 	{
 		x->ss = 1;
@@ -114,85 +169,88 @@ void	cost_calc(stack *x)
 		x->cost = 1;
 	}
 	else if (x->ra > 0 && x->rb > 0)
-	{
-		res = x->ra - x->rb;
-		if (res > 0)
-		{
-			x->rr = x->rb;
-			x->rb = 0;
-			x->ra = res;
-			x->cost = x->rr + x->ra;
-		}
-		else if (res < 0)
-		{
-			x->rr = x->ra;
-			x->ra = 0;
-			x->rb = res;
-			x->cost = x->rr + x->rb;
-		}
-		else
-		{
-			x->rr = x->ra;
-			x->ra = 0;
-			x->rb = 0;
-			x->cost = x->rr;
-		}
-	}
+		cost_rr(x);
 	else if (x->rra > 0 && x->rrb > 0)
-	{
-		res = x->rra - x->rrb;
-		if (res > 0)
-		{
-			x->rrr = x->rrb;
-			x->rrb = 0;
-			x->rra = res;
-			x->cost = x->rrr + x->rra;
-		}
-		else if (res < 0)
-		{
-			x->rrr = x->rra;
-			x->rra = 0;
-			x->rrb = res;
-			x->cost = x->rrr + x->rrb;
-		}
-		else
-		{
-			x->rrr = x->rra;
-			x->rra = 0;
-			x->rrb = 0;
-			x->cost = x->rrr;
-		}
-	}
+		cost_rrr(x);
 	else
 	{
-		
+		x->cost = x->sa + x->sb + x->ra + x->rb + x->rra + x->rrb;
 	}
 }
 
-void	cost_pos1(stack *x)
+void	cost_pos_1(stack *x, stack *y, node *ptr)
 {
 	if (ptr->target == 1)
+		x->cost = 0;
+	else if (ptr->target == 2)
+	{
+		x->sb = 1;
+		x->cost = 1;
+		if (x->new_cost == -1)
+			x->new_cost = x->cost;
+	}
+	else if (ptr->target > 2)
+	{
+		if (y->median >= ptr->target)
 		{
-			x->cost = 0;
+			x->rb = ptr->target - 1;
+			x->cost = ptr->target - 1;
 		}
-		else if (ptr->target == 2)
+		else if (ptr->target > y->median)
 		{
-			x->cost = 1;
-			x->sb = 1;
+			x->rrb = y->size - ptr->target + 1;
+			x->cost = y->size - ptr->target + 1;
 		}
-		else if (ptr->target > 2)
+		if (x->new_cost == -1)
+			x->new_cost = x->cost;
+	}
+}
+
+void	cost_pos_2(stack *x, stack *y, node *ptr)
+{
+	if (ptr->target == 2)
+	{
+		x->sa = 1;
+		x->sb = 1;
+		cost_calc(x);
+	}
+	else if (ptr->target > 2)
+	{
+		if (y->median >= ptr->target)
 		{
-			if (x->median >= ptr->target)
-			{
-				x->cost = ptr->target - 1;
-				x->rb = ptr->target - 1;
-			}
-			else if (ptr->target > x->median)
-			{
-				x->cost = x->size - ptr->target + 1;
-				x->rrb = x->size - ptr->target + 1;
-			}
+			x->sa = 1;
+			x->rb = ptr->target - 1;
+			cost_calc(x);
 		}
+		else if (ptr->target > y->median)
+		{
+			x->sa = 1;
+			x->rrb = y->size - ptr->target + 1;
+			cost_calc(x);
+		}
+	}
+}
+
+void	cost(stack *x, stack *y, node *ptr)
+{
+	if (x->median >= ptr->pos)
+	{
+		x->ra = ptr->pos - 1;
+		if (y->median >= ptr->target)
+			x->rb = ptr->target - 1;
+		else if (ptr->target > y->median)
+			x->rrb = y->size - ptr->target + 1;
+		cost_calc(x);
+	}
+	else if (ptr->pos > x->median)
+	{
+		x->rra = x->size - ptr->pos + 1;
+		if (y->median >= ptr->target)
+			x->rb = ptr->target - 1;
+		else if (ptr->target > y->median)
+			x->rrb = y->size - ptr->target + 1;
+		cost_calc(x);
+	}
 }
 
 void	cost_analysis(stack *x, stack *y)
@@ -201,7 +259,7 @@ void	cost_analysis(stack *x, stack *y)
 
 	ptr = x->head;
 	if (ptr->pos == 1)
-		cost_pos1(x);
+		cost_pos_1(x, y, ptr);
 	else if (ptr->pos == 2)
 	{
 		if (ptr->target == 1)
@@ -209,15 +267,22 @@ void	cost_analysis(stack *x, stack *y)
 			x->cost = 1;
 			x->sa = 1;
 		}
-		else if (ptr->target == 2)
-		{
-			x->cost = 1;
-			x->sa = 1;
-			x->sb = 1;
-		}
-		else if (ptr->target > 2)
-		{
-			
-		}
+		else
+			cost_pos_2(x, y, ptr);
+	}
+	else if (ptr->pos > 2)
+		cost(x, y, ptr);
+	if (x->cost == 0)
+		return ;
+	else if (x->new_cost > x->cost)
+		x->new_cost = x->cost; 
+}
+void	cost_exe(stack *a, stack *b)
+{
+	if (a->cost == 0)
+		push_n(a, b);
+	else
+	{
+		
 	}
 }

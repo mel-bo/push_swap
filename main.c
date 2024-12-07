@@ -6,7 +6,7 @@
 /*   By: mel-bout <mel-bout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 16:10:42 by mel-bout          #+#    #+#             */
-/*   Updated: 2024/12/01 16:35:56 by mel-bout         ###   ########.fr       */
+/*   Updated: 2024/12/03 22:20:46 by mel-bout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,14 @@ void	call_split(char **tab)
 	}
 	printf("count = %d\n", count);
 }
-void	init_queue(stack *a, stack *b)
+void	init_queue(stack *a)
 {
 	a->head = NULL;
 	a->tail = NULL;
 	a->size = 0;
 	a->median = 0;
 	a->cost = -1;
+	a->new_cost = -1;
 	a->sa = 0;
 	a->sb = 0;
 	a->ra = 0;

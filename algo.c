@@ -6,7 +6,7 @@
 /*   By: mel-bout <mel-bout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 22:25:18 by mel-bout          #+#    #+#             */
-/*   Updated: 2024/11/30 21:00:21 by mel-bout         ###   ########.fr       */
+/*   Updated: 2024/12/03 22:32:00 by mel-bout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	turk_algo(stack *a, stack *b)
 			get_order(a, b);
 			target_small(a, b);
 			cost_analysis(a, b);
+			cost_exe(a, b);
 		}
 	}
 }
