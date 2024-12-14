@@ -1,0 +1,46 @@
+void	target_b(stack *a, stack *b)
+{
+	node	*ptr_a;
+	node	*ptr_b;
+	int		index_value;
+
+	while (ptr_b != NULL)
+	{
+		ptr_b = b->head;
+		index_value = INT_MAX;
+		while (ptr_a != NULL)
+		{
+			if (ptr_a->x > ptr_b->x && ptr_a->x < index_value)
+			{
+				index_value = ptr_a->x;
+				ptr_b->target_node = ptr_a;
+			}
+			ptr_a = ptr_a->next;
+		}
+		if (index_value = INT_MAX)
+			ptr_b->target_node = get_min_node(a);
+		ptr_b = ptr_b->next;
+	}
+}
+node	*get_min_node(stack *a)
+{
+	node	*ptr;
+	node	*min_node;
+	int		min_value;
+
+	if (!a)
+		return (NULL);
+	ptr = a->head;
+	min_value = ptr->x;
+	min_node = ptr;
+	while (ptr != NULL)
+	{
+		if (ptr->x < min_value)
+		{
+			min_value = ptr->x;
+			min_node = ptr;
+		}
+		ptr = ptr->next;
+	}
+	return (min_node);
+}
